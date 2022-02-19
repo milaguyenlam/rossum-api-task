@@ -1,0 +1,6 @@
+flask
+rossum
+requests
+pytest
+lxml
+python-dotenv
