@@ -5,7 +5,7 @@ Flask application for annotation export and its conversion (Rossum platform)
 - Simple flask app aiming to export annotations by communicating with Rossum API, converting it's xml response, sending it to my-little-endpoint.ok/rossum and finally returning a json response telling if the whole pipeline was successful.
 
 ### API
-- GET /export/\<queue-id\>/\<annotation-id\> (with Authorization: Basic <hash>)
+- GET /export/\<queue-id\>/\<annotation-id\> (with Authorization: Basic \<username:password base64 hash\>)
   - returns json response: {"success": Boolean}
   
 ### Environment variables
