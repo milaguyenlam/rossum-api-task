@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-RUN pytest tests
+# RUN pytest tests
 
 EXPOSE 5000
 
