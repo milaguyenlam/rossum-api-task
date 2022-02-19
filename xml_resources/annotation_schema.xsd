@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018, Rossum, Ltd. All rights reserved.
+
+This XSD describes data format used for queue export.
+-->
+<xs:schema version="1.2.0" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- root element -->
+    <xs:element name="export">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="results" />
+                <xs:element ref="pagination" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="results">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="annotation" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="annotation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string" />
+                <xs:element name="arrived_at" type="xs:dateTime" />
+                <xs:element minOccurs="0" name="exported_at" type="xs:dateTime" />
+                <xs:element ref="document" />
+                <xs:element ref="modifier" />
+                <xs:element ref="schema" />
+                <xs:element ref="metadata" />
+                <xs:element ref="content" />
+                <xs:element name="automated" type="xs:boolean" />
+                <xs:element minOccurs="0" name="modified_at" type="xs:dateTime" />
+                <xs:element minOccurs="0" name="assigned_at" type="xs:dateTime" />
+            </xs:sequence>
+            <xs:attribute name="url" use="required" type="xs:anyURI" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="document">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="file_name" type="xs:string" />
+                <xs:element name="file" type="xs:anyURI" />
+            </xs:sequence>
+            <xs:attribute name="url" use="required" type="xs:anyURI" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="modifier">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" minOccurs="0" type="xs:string" />
+            </xs:sequence>
+            <xs:attribute name="url" type="xs:anyURI" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="schema">
+        <xs:complexType>
+            <xs:attribute name="url" use="required" type="xs:anyURI" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="metadata">
+        <!-- list of user-defined pairs: <item key="some-key">some-value</item> -->
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="item">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="key" use="required" type="xs:string" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="content">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="section" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="section">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="datapoint" />
+                <xs:element ref="multivalue" />
+            </xs:choice>
+            <xs:attribute name="schema_id" use="required" type="xs:NCName" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="multivalue">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tuple" />
+            </xs:sequence>
+            <xs:attribute name="schema_id" use="required" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="tuple">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="datapoint" />
+            </xs:sequence>
+            <xs:attribute name="schema_id" use="required" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="datapoint">
+        <xs:complexType mixed="true">
+            <xs:attribute name="schema_id" use="required" type="xs:string" />
+            <xs:attribute name="type" use="required" type="xs:string" />
+            <xs:attribute name="rir_confidence" type="xs:decimal" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="pagination">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="next" type="xs:anyURI" />
+                <xs:element name="previous" type="xs:anyURI" />
+                <xs:element name="total" type="xs:unsignedInt" />
+                <xs:element name="total_pages" type="xs:unsignedInt" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

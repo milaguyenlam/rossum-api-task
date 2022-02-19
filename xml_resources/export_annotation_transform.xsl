@@ -8,7 +8,7 @@
             <Invoices>
                 <Payable>
                     <InvoiceNumber>
-                        <xsl:value-of select="section[@schema_id='invoice_info_section']/datapoint[@schema_id='invoice_id']" />
+                        <xsl:value-of select="section[@schema_id='invoice_info_section']/datapoint[@schema_id='document_id']" />
                     </InvoiceNumber>
                     <InvoiceDate>
                         <xsl:value-of select="section[@schema_id='invoice_info_section']/datapoint[@schema_id='date_issue']" />
@@ -21,7 +21,7 @@
                     </TotalAmount>
                     <Notes />
                     <Iban>
-                        <xsl:value-of select="section[@schema_id='invoice_info_section']/datapoint[@schema_id='iban']" />
+                        <xsl:value-of select="section[@schema_id='payment_info_section']/datapoint[@schema_id='iban']" />
                     </Iban>
                     <Amount>
                         <xsl:value-of select="section[@schema_id='amounts_section']/datapoint[@schema_id='amount_total_tax']" />

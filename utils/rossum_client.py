@@ -21,7 +21,6 @@ class RossumClient:
         if response.ok:
             return response.content["key"]
         else:
-            app.logger.error(f"Couldn't login to Rossum - status code: {response.status_code}")
             return None
 
     def export_annotation(self, queue_id, annotation_id, format):
@@ -36,7 +35,4 @@ class RossumClient:
         if response.ok:
             return response.content
         else:
-            app.logger.error(
-                f"Couldn't export annotation (queue_id={queue_id},annotation_id={annotation_id}) - status code: {response.status_code}"
-            )
             return None

@@ -8,7 +8,10 @@ class MyLittleEndpointClient:
         pass
 
     def send_annotation(self, annotation_id, content):
-        response = requests.post(
-            url=self.url, json={"annotationId": annotation_id, "content": content}
-        )
-        return response.ok
+        try:
+            response = requests.post(
+                url=self.url, json={"annotationId": annotation_id, "content": content}
+            )
+            return response.ok
+        except:
+            return False

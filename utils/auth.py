@@ -1,14 +1,12 @@
 from functools import wraps
 import os
 from flask import request
-
-default_username = os.environ("DEFAULT_USERNAME")
-default_password = os.environ("DEFAULT_PASSWORD")
+import config
 
 
 def dummy_authenticate():
     auth = request.authorization
-    return auth.username == default_username and auth.password == default_password
+    return auth.username == config.default_username and auth.password == config.default_password
 
 
 def login_required(f):
@@ -17,6 +15,6 @@ def login_required(f):
         if dummy_authenticate():
             return f(*args, **kwargs)
         else:
-            return "Access not granted, please submit correct credentials!", 403
+            return "Access not granted, please submit correct credentials!", 401
 
     return wrapper

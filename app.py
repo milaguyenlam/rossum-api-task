@@ -1,13 +1,18 @@
-import os
 from flask import Flask
 from config import Config
-from dotenv import load_dotenv
+from api.annotation import annotation_route
 
-load_dotenv()
-app = Flask(__name__)
+# TODO: implement https communication
 
-# TODO: register api routes
+
+def create_app(test_config=None):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    app.register_blueprint(annotation_route)
+    return app
+
+
+app = create_app()
 
 if __name__ == "__main__":
-    app.config.from_object(Config)
-    app.run(host="0.0.0.0")
+    app.run()

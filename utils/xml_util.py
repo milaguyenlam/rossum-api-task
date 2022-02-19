@@ -1,6 +1,6 @@
 import lxml.etree as ET
 
-with open("./xml_resources/export_annotation_schema.xsd") as f:
+with open("./xml_resources/annotation_schema.xsd") as f:
     export_annotation_xml_response_schema = ET.XMLSchema(ET.parse(f))
 with open("./xml_resources/export_annotation_transform.xsl") as f:
     export_annotation_transform = ET.XSLT(ET.parse(f))
