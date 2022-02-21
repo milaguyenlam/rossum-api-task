@@ -25,3 +25,9 @@ Flask application for annotation export and its conversion (Rossum platform)
 - app.py - flask entrypoint file
 - Dockerfile - file that defines the container's build procedure (Note that: if you want to run tests as a part of build pipeline, you shall uncomment the line containing "RUN pytest tests")
 - requirements.txt - file defining all python dependencies of this project
+- task_description.pdf - file defining task requirements and specification
+
+### Notes
+
+- Since API uses Basic Authentication (very easily decrypted), it's necessary to communicate over HTTPS instead of HTTP
+- flask server is only used for development and testing purposes, to make an app production ready a wgsi server such as gunicorn needs to be set up
